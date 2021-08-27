@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h1 class="container" style="font-size: 35px;">How Long Until...</h1>
+    <p>Enter an exact date and time below and find out exactly how long it is until that day comes around.</p>
+
+    <div class="border1" style="display: inline-block; padding-bottom: 20px;">
+
+      <form name="customdate" action="/" method="post" onsubmit="return validateForm()">
+
+          <label for="start">Start date:<br>
+          <input name="date_input" type="text" placeholder="YYYY-MM-DD HH:MM"></label><br>
+
+
+          <div style="text-align: center;">
+              <button type="submit" name="submit_c" value="submit_c">SUBMIT</button>
+          </div>
+
+      </form>
+
+    </div>
+
+
+    <p style="font-size: 32px;">Or...</p>
+    <p style="margin-top: 23px;">pick a date/event from the options below</p>
+
+    <form action="/" method="post">
+        <div class="border1">
+
+            {% for row in rows %}
+                <input name="date" type="radio" id="{{ row["uniquename"] }}" value="{{ row["dispname"] }}">
+                <label class="hover" for="{{ row["uniquename"] }}">{{ row["dispname"] }}</label><br>
+            {% endfor %}
+
+            <input name="date" type="radio" onclick="location.href='/custom-dates'" id="customid" value="custom">
+            <label class="hover2" for="customid">Add Custom Date</label><br>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 10px;">
+            <button style="margin: 10px" type="submit" name="submit_a" value="submit_a">SUBMIT</button>
+            <button style="margin: 10px" type="submit" name="submit_b" value="submit_b">SHUFFLE</button>
+        </div>
+    </form>
+
+
+    <script>
+
+        function validateForm() {
+          var x = document.forms["customdate"]["date_input"].value;
+
+          if (x == "") {
+            alert("Please enter a date");
+            return false;
+          }
+
+          if(x.length < 16){
+        	  alert("Please follow the format YYYY-MM-DD HH:MM (e.g. 2025-03-21 14:30)");
+        	  return false;
+          }
+
+          if(x.indexOf(":") == -1){
+        	  alert("Please use ':' with time (e.g. 00:00)");
+        	  return false;
+          }
+
+          if(x.indexOf("-") == -1){
+        	  alert("Please separate with '-' (e.g. 2025-03-21)");
+        	  return false;
+          }
+
+          if(x.length > 16){
+        	  alert("Please ensure your date-time doesn't have a space at the end or any other character.");
+        	  return false;
+          }
+
+          if(x.length !== 16 || x[4] !== '-' || x[7] !== '-' || x[10] !== ' ' || x[13] !== ':'){
+        	  alert("Please ensure your date-time follows the correct format. (e.g. 2025-03-21 14:30)");
+        	  return false;
+          }
+
+          if(isNaN(x[0]) !== false || isNaN(x[1]) !== false || isNaN(x[2]) !== false || isNaN(x[3]) !== false || isNaN(x[5]) !== false
+          || isNaN(x[6]) !== false || isNaN(x[8]) !== false || isNaN(x[9]) !== false || isNaN(x[11]) !== false || isNaN(x[12]) !== false || isNaN(x[14]) !== false || isNaN(x[15]) !== false){
+            alert("Please check your input for misplaced characters and format correctly. (e.g. 2025-03-21 14:30)");
+            return false;
+          }
+
+
+          if (x.slice(5,7) > 12) {
+            alert("Please ensure your date-time follows the correct format with months (MM) not exceeding 12. (YYYY-MM-DD HH:MM)");
+        	  return false;
+          }
+
+          if (x.slice(8,10) > 31) {
+            alert("Please ensure your date-time follows the correct format with days (DD) not exceeding 31. (YYYY-MM-DD HH:MM)");
+        	  return false;
+          }
+
+          if (x.slice(11,13) >= 24) {
+            alert("Please ensure your date-time follows the correct format with hours (HH) not exceeding 23. (YYYY-MM-DD HH:MM)");
+        	  return false;
+          }
+
+          if (x.slice(14,16) >= 60) {
+            alert("Please ensure your date-time follows the correct format with minutes (MM) not exceeding 59. (YYYY-MM-DD HH:MM)");
+        	  return false;
+          }
+
+          if (  (x.slice(5,7) == 02 && x.slice(8,10) > 29) || (x.slice(5,7) == 04 && x.slice(8,10) > 30) || (x.slice(5,7) == 06 && x.slice(8,10) > 30) ||
+          (x.slice(5,7) == 09 && x.slice(8,10) > 30) || (x.slice(5,7) == 11 && x.slice(8,10) > 30)  ) {
+            alert("The day you have entered exceeds the number of days that are in that particular month.");
+        	  return false;
+          }
+
+        }
+
+    </script>
+{% endblock %}

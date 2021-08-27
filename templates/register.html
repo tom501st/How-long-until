@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h1 class="container" style="font-size: 35px;">Create an Account</h1>
+    <p>Quickly create an account in order to store your own custom dates.</p>
+    <form name="register" action="/register" method="post" style="margin-bottom: 15px;" onsubmit="return pswMatch()">
+        <div class="border1" style="margin: 15px;">
+            <input autocomplete="off" autofocus id="username" name="username" placeholder="Username" type="text" required>
+        </div>
+        <div class="border1" style="margin: 15px;">
+            <input name="psw" id="psw" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="8 characters minimum" required>
+        </div>
+        <div class="border1" style="margin: 15px;">
+            <input name="confpassword" id="confpassword" placeholder="Confirm password" type="password" required>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <div class="border1" id="message" style="margin: 35px;">
+        <h3 style="color: white;">Password must contain the following:</h3>
+        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+        <p id="number" class="invalid">A <b>number</b></p>
+        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+    </div>
+
+
+    <script>
+      var myInput = document.getElementById("psw");
+      var number = document.getElementById("number");
+      var length = document.getElementById("length");
+
+      // When the user clicks on the password field, show the message box
+      myInput.onfocus = function() {
+        document.getElementById("message").style.display = "block";
+      }
+
+      // When the user clicks outside of the password field, hide the message box
+      myInput.onblur = function() {
+        document.getElementById("message").style.display = "none";
+      }
+
+      // When the user starts to type something inside the password field
+      myInput.onkeyup = function() {
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if(myInput.value.match(numbers)) {
+          number.classList.remove("invalid");
+          number.classList.add("valid");
+        } else {
+          number.classList.remove("valid");
+          number.classList.add("invalid");
+        }
+
+        // Validate length
+        if(myInput.value.length >= 8) {
+          length.classList.remove("invalid");
+          length.classList.add("valid");
+        } else {
+          length.classList.remove("valid");
+          length.classList.add("invalid");
+        }
+
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if(myInput.value.match(lowerCaseLetters)) {
+          letter.classList.remove("invalid");
+          letter.classList.add("valid");
+        } else {
+          letter.classList.remove("valid");
+          letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if(myInput.value.match(upperCaseLetters)) {
+          capital.classList.remove("invalid");
+          capital.classList.add("valid");
+        } else {
+          capital.classList.remove("valid");
+          capital.classList.add("invalid");
+        }
+
+      }
+
+      function pswMatch() {
+        var psw = document.forms["register"]["psw"].value;
+        var confpassword = document.forms["register"]["confpassword"].value;
+
+        if (psw !== confpassword) {
+          alert("Passwords do not match");
+          return false;
+        }
+      }
+      
+    </script>
+{% endblock %}

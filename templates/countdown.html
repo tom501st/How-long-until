@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- <h1 class="container" style="font-size: 35px;">How Long {{ untilOrSince }} :</h1> -->
+    <h1 id="untilOrSince"></h1>
+    <p>{{ dispname }}</p>
+    <p>({{ dateformatted }})</p>
+    <!-- <p id="insert"></p> -->
+
+
+    <body onload="myFunction()" style="margin:0;">
+
+        <div id="loader" class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+
+        <div style="display:none;" id="myDiv">
+            <p style="font-size: 8vw;" id="countdown"></p>
+            <a href="javascript:history.back()"><button style="margin-bottom: 40px;">GO BACK</button></a>
+        </div>
+
+    </body>
+
+    <script>
+        // Set the date we're counting down to
+        var countDownDate = new Date("{{ dateformatted }}"); //.getTime() removed
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+          // Get today's date and time
+          var now = new Date(); // removed .getTime()
+
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+
+          // document.getElementById("insert").innerHTML = "Current time: " + new Date();
+
+          // Time calculations for days, hours, minutes and seconds
+          // var years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+          // var days = Math.floor(distance % (1000 * 60 * 60 * 24));
+          // var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          // var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          // var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          // If more than a year in past/future
+          if (days >= 365 || days <= -365) {
+            var daysRemainder = days % 365;
+            var years = Math.floor(days / 365);
+            document.getElementById("countdown").style.fontSize = "8vw";
+            if (days >= 3646 || days <= -3646) {
+              document.getElementById("countdown").style.fontSize = "7vw";
+            }
+            if (distance < 0) {
+              document.getElementById("countdown").innerHTML = (years+1)*-1 + "y " + ((daysRemainder*-1) -1) + "d " + hours*-1 + "h "
+              + minutes*-1 + "m " + seconds*-1 + "s ";
+            }
+            else {
+              document.getElementById("countdown").innerHTML = years + "y " + daysRemainder + "d " + hours + "h "
+              + minutes + "m " + seconds + "s ";
+            }
+          }
+
+          else {
+            if (distance < 0) {
+              document.getElementById("countdown").innerHTML = ((days*-1) -1) + "d " + ((hours*-1) -1) + "h "
+            + ((minutes*-1) -1) + "m " + seconds*-1 + "s ";
+            }
+            else {
+              document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+            }
+          }
+
+          if (distance < 0) {
+            document.getElementById("untilOrSince").innerHTML = "How Long Since:";
+          }
+          else {
+            document.getElementById("untilOrSince").innerHTML = "How Long Until:";
+          }
+
+        }, 1000);
+
+
+
+        var myVar;
+
+        function myFunction() {
+          myVar = setTimeout(showPage, 1000);
+          if (screen.width < 420) {
+            document.getElementById("countdown").style.fontSize = "23vw";
+          }
+        }
+
+        function showPage() {
+          document.getElementById("loader").style.display = "none";
+          document.getElementById("myDiv").style.display = "block";
+        }
+
+
+    </script>
+
+{% endblock %}

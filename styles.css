@@ -1,0 +1,215 @@
+nav {
+    padding-left: 3vw;
+    padding-right: 2vw;
+    padding-bottom: 2vw;
+    padding-top: 2vw;
+}
+
+.navbar-brand {
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-family: 'Lato', sans-serif;
+}
+
+.nav-item {
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-family: 'Lato', sans-serif;
+}
+
+nav .navbar-brand {
+    /* size for brand */
+    font-size: x-large;
+}
+
+body {
+    background-color: #191919 !important;
+    color: #f6f7f9 !important;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-family: 'Lato', sans-serif;
+}
+
+.light-text {
+    color: #f6f7f9;
+}
+
+.border1 input[type="radio"] {
+  display: none;
+}
+
+.border1 label {
+  padding: 10px;
+  text-transform: uppercase;
+  border: 2px solid #767676;
+  border-radius: 3px;
+  color: #f6f7f9;
+  display: block;
+  width: auto;
+  margin-right: auto;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.border2 {
+  padding: 10px;
+  text-transform: uppercase;
+  border: 2px solid #767676;
+  border-radius: 3px;
+  color: #f6f7f9;
+  display: block;
+  width: auto;
+  margin-right: auto;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+
+.border1 input[type="radio"]:checked + label {
+  background-color: #f8f8f9;
+  border: 2px solid #f8f8f9;
+  color: black;
+}
+
+main {
+    max-width: 80vw;
+    margin: auto;
+    margin-top: 2pc;
+    margin-bottom: 2pc;
+    font-family: 'Lato', sans-serif;
+}
+
+button {
+    padding: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-radius: 3px !important;
+    border: 2px solid #f8f8f9;
+    background-color: #f8f8f9;
+    color: black;
+    margin: 1vw;
+}
+
+button:hover {
+    background-color: #e0e0e0;
+    border: 2px solid #e0e0e0;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.hover:hover {
+    background-color: #242424;
+}
+
+.hover2:hover {
+  background-color: #f8f8f9;
+  border: 2px solid #f8f8f9;
+  color: black;
+}
+
+
+/* loader styling */
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: #63B973;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "\2705";
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+  color: #DD5252;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "\274C";
+}
+
+/* Flask flashes */
+.flashes {
+  padding: 10px;
+  list-style-type: none;
+  background-color: grey;
+}
+.flashes-green {
+  padding: 10px;
+  list-style-type: none;
+  background-color: #7aa668;
+}
+.flashes-red {
+  padding: 10px;
+  list-style-type: none;
+  background-color: #DD5252;
+}
+
+
